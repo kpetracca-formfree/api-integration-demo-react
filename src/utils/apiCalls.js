@@ -3,6 +3,38 @@ const baseUrl = "https://verifierapi.accountchek.net/v1";
 
 const proxyFlag = true;
 
+const authCred = "Basic a3BldHJhY2NhQGZvcm1mcmVlLmNvbTpEMGN0b3JXaDBVMiE=";
+
+export const GET = async (url) => {
+  const response = await fetch(
+    proxyFlag ? proxy + baseUrl + url : baseUrl + url,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: authCred,
+      },
+    }
+  );
+  return await response.json();
+};
+
+export const GET_HTML = async (url) => {
+  const response = await fetch(
+    proxyFlag ? proxy + baseUrl + url : baseUrl + url,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: authCred,
+      },
+    }
+  );
+  return await response.text();
+};
+
 export const POST = async (url, body) => {
   const response = await fetch(
     proxyFlag ? proxy + baseUrl + url : baseUrl + url,
@@ -11,7 +43,7 @@ export const POST = async (url, body) => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Basic a3BldHJhY2NhQGZvcm1mcmVlLmNvbTpEMGN0b3JXaDBVMiE=",
+        Authorization: authCred,
       },
       body: JSON.stringify(body),
     }
@@ -27,7 +59,7 @@ export const PATCH = async (url, body) => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Basic a3BldHJhY2NhQGZvcm1mcmVlLmNvbTpEMGN0b3JXaDBVMiE=",
+        Authorization: authCred,
       },
       body: JSON.stringify(body),
     }
