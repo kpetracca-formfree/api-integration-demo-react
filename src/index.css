@@ -5,6 +5,7 @@
   --black: rgb(27, 27, 27);
   --grey: rgb(150, 150, 150);
   --grey-dark: rgb(87, 87, 87);
+  --grey-light: rgb(200, 200, 200);
   --background: rgb(250, 250, 250);
   --ff-red: rgb(235, 83, 98);
   --ff-red-gradient-light: rgb(251, 52, 90);
@@ -12,7 +13,10 @@
   --ff-red-dark: rgb(184, 70, 81);
   --ff-blue: rgb(9, 182, 255);
 
+  --control-width: 200px;
+  --demo-width: calc(100vw - var(--control-width));
   --nav-height: 60px;
+  --main-height: calc(100vh - var(--nav-height));
 }
 
 *,

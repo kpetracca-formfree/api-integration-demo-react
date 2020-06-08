@@ -1,8 +1,10 @@
 import React from "react";
+import { useRecoilState } from "recoil";
+import { demoTypeGlobal } from "../utils/recoilStates";
 
 import styled from "styled-components";
 
-const NavStyled = styled.nav`
+const DemoNavStyled = styled.nav`
   box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2),
     0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0);
   background-image: -webkit-linear-gradient(
@@ -19,14 +21,21 @@ const NavStyled = styled.nav`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  p {
+    margin: 5px;
+  }
 `;
 
-const Nav = () => {
+const DemoNav = () => {
+  const [demoType, setDemoType] = useRecoilState(demoTypeGlobal);
   return (
-    <NavStyled>
+    <DemoNavStyled>
       <p>Fake Website</p>
-    </NavStyled>
+      {demoType ? <p>{" | "}</p> : ""}
+      <p>{demoType}</p>
+    </DemoNavStyled>
   );
 };
 
-export default Nav;
+export default DemoNav;
