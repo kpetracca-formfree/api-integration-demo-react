@@ -28,6 +28,7 @@ const DemoNavStyled = styled.nav`
 `;
 
 const DemoNav = () => {
+  // eslint-disable-next-line
   const [demoType, setDemoType] = useRecoilState(demoTypeGlobal);
   return (
     <DemoNavStyled>
