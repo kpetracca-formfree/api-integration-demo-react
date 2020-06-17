@@ -1,6 +1,7 @@
 import React from "react";
 import { useRecoilState } from "recoil";
 import { demoTypeGlobal } from "./../utils/recoilStates";
+import { useHistory } from "react-router-dom";
 
 import styled from "styled-components";
 
@@ -30,13 +31,24 @@ const DemoControlStyled = styled.div`
     button {
       width: 75px;
     }
+
+    .selected {
+      background-color: var(--ff-blue);
+    }
+
+    .selected:hover {
+      background-color: var(--ff-blue-dark);
+    }
   }
 `;
 
 const DemoControl = () => {
   const [demoType, setDemoType] = useRecoilState(demoTypeGlobal);
 
+  const history = useHistory();
+
   const changeDemoType = (e) => {
+    history.replace("/");
     setDemoType(e.target.value);
   };
 
@@ -44,12 +56,32 @@ const DemoControl = () => {
     <DemoControlStyled>
       <h1>Demo Dash:</h1>
       <nav>
-        <button onClick={(e) => changeDemoType(e)} value="POS">
-          POS Demo
-        </button>
-        <button onClick={(e) => changeDemoType(e)} value="LOS">
-          LOS Demo
-        </button>
+        {demoType === "POS" ? (
+          <button
+            onClick={(e) => changeDemoType(e)}
+            value="POS"
+            className="selected"
+          >
+            POS Demo
+          </button>
+        ) : (
+          <button onClick={(e) => changeDemoType(e)} value="POS">
+            POS Demo
+          </button>
+        )}
+        {demoType === "LOS" ? (
+          <button
+            onClick={(e) => changeDemoType(e)}
+            value="LOS"
+            className="selected"
+          >
+            LOS Demo
+          </button>
+        ) : (
+          <button onClick={(e) => changeDemoType(e)} value="LOS">
+            LOS Demo
+          </button>
+        )}
       </nav>
     </DemoControlStyled>
   );
