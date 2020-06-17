@@ -12,6 +12,7 @@
   --ff-red-gradient-dark: rgb(223, 24, 62);
   --ff-red-dark: rgb(184, 70, 81);
   --ff-blue: rgb(9, 182, 255);
+  --ff-blue-dark: rgb(5, 136, 192);
 
   --control-width: 200px;
   --demo-width: calc(100vw - var(--control-width));
