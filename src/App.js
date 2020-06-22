@@ -10,7 +10,7 @@ import DemoWindow from "./components/DemoWindow"; // routing import
 // POS routing imports
 import StartApplication from "./components/POS/StartApplication";
 import AssetConnection from "./components/POS/AssetConnection";
-import VOAReport from "./components/POS/VOAReport";
+import ApplicationComplete from "./components/POS/ApplicationComplete";
 
 // NOTE: LOS is more like SPA format versus different routing in POS
 
@@ -46,7 +46,10 @@ const App = () => {
               path="/application/assets/:orderId"
               component={AssetConnection}
             />
-            <Route path="/application/report/:orderId" component={VOAReport} />
+            <Route
+              path="/application/complete/:orderId"
+              component={ApplicationComplete}
+            />
           </div>
         </Router>
       </AppStyled>
