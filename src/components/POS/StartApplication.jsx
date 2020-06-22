@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
 import { orderIdGlobal } from "../../utils/recoilStates";
+import { useHistory } from "react-router-dom";
 
-import { GET_HTML, POST, PATCH, GET } from "../../utils/apiCalls";
+import { POST, PATCH } from "../../utils/apiCalls";
 
 import styled from "styled-components";
 
@@ -35,6 +36,8 @@ const StartApplication = () => {
   const [last4SSN, setLast4SSN] = useState();
 
   const [orderId, setOrderId] = useRecoilState(orderIdGlobal);
+
+  const history = useHistory();
 
   const changeFirstName = (e) => {
     setFirstName(e.target.value);
@@ -93,6 +96,7 @@ const StartApplication = () => {
     setOrderId(orderId);
     await createOrderVOA(orderId);
     await setVOAOpen(orderId);
+    history.replace(`/application/assets/${orderId}`);
   };
 
   return (
