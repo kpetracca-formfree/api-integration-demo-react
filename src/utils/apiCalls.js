@@ -35,6 +35,21 @@ export const GET_HTML = async (url) => {
   return await response.text();
 };
 
+export const GET_PDF = async (url) => {
+  const response = await fetch(
+    proxyFlag ? proxy + baseUrl + url : baseUrl + url,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/pdf",
+        "Content-Type": "application/json",
+        Authorization: authCred,
+      },
+    }
+  );
+  return await response.blob();
+};
+
 export const POST = async (url, body) => {
   const response = await fetch(
     proxyFlag ? proxy + baseUrl + url : baseUrl + url,
