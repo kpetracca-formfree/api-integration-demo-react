@@ -14,14 +14,12 @@ import ApplicationComplete from "./components/POS/ApplicationComplete";
 
 // NOTE: LOS is more like SPA format versus different routing in POS
 
-import "./App.css";
 import styled from "styled-components";
 
 const AppStyled = styled.div`
   min-height: 100vh;
-  width: 100vw;
+  width: 100%;
   display: flex;
-  align-items: center;
 
   .demoWrapper {
     width: 100%;
