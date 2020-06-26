@@ -18,10 +18,15 @@ const DemoControlStyled = styled.div`
   box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2),
     0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0);
 
+  .fixedWrapper {
+    position: fixed;
+  }
+
   h1 {
     padding: 5px;
     width: 100%;
     text-align: left;
+    font-size: 26px;
   }
 
   nav {
@@ -54,35 +59,37 @@ const DemoControl = () => {
 
   return (
     <DemoControlStyled>
-      <h1>Demo Dash:</h1>
-      <nav>
-        {demoType === "POS" ? (
-          <button
-            onClick={(e) => changeDemoType(e)}
-            value="POS"
-            className="selected"
-          >
-            POS Demo
-          </button>
-        ) : (
-          <button onClick={(e) => changeDemoType(e)} value="POS">
-            POS Demo
-          </button>
-        )}
-        {demoType === "LOS" ? (
-          <button
-            onClick={(e) => changeDemoType(e)}
-            value="LOS"
-            className="selected"
-          >
-            LOS Demo
-          </button>
-        ) : (
-          <button onClick={(e) => changeDemoType(e)} value="LOS">
-            LOS Demo
-          </button>
-        )}
-      </nav>
+      <div className="fixedWrapper">
+        <h1>Demo Dash:</h1>
+        <nav>
+          {demoType === "POS" ? (
+            <button
+              onClick={(e) => changeDemoType(e)}
+              value="POS"
+              className="selected"
+            >
+              POS Demo
+            </button>
+          ) : (
+            <button onClick={(e) => changeDemoType(e)} value="POS">
+              POS Demo
+            </button>
+          )}
+          {demoType === "LOS" ? (
+            <button
+              onClick={(e) => changeDemoType(e)}
+              value="LOS"
+              className="selected"
+            >
+              LOS Demo
+            </button>
+          ) : (
+            <button onClick={(e) => changeDemoType(e)} value="LOS">
+              LOS Demo
+            </button>
+          )}
+        </nav>
+      </div>
     </DemoControlStyled>
   );
 };
