@@ -1,103 +1,103 @@
 import React, { useState, useEffect } from "react";
-import { Document, Page, pdfjs } from "react-pdf";
-import "react-pdf/dist/Page/AnnotationLayer.css";
 
 import { GET, GET_PDF } from "../../utils/apiCalls";
 
-import styled from "styled-components";
+import ReportViewer from "./ReportViewer";
 
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+import styled from "styled-components";
 
 const ApplicationCompleteStyled = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
 `;
 
 const ApplicationComplete = (props) => {
   const { orderId } = props.match.params;
 
-  const [latestReportId, setLatestReportId] = useState("");
-  const [latestReportJson, setLatestReportJson] = useState("");
-  const [latestReportPdf, setLatestReportPdf] = useState("");
+  const [orderVoaLite, setOrderVoaLite] = useState([]);
+  const [latestReportId, setLatestReportId] = useState(null);
+  const [latestReportJson, setLatestReportJson] = useState(null);
+  const [latestReportPdf, setLatestReportPdf] = useState(null);
 
-  const [numPages, setNumPages] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
+  let voaLite = "";
 
   useEffect(() => {
     const getReportInfo = async (orderId) => {
       const url = `/accountchekorders/${orderId}/voa/reports`;
       const response = await GET(url);
-      console.log("Retrieving report info: ", response[0]);
-      setLatestReportId(response[0].id);
+      console.log("Retrieving report info: ", response);
+      try {
+        setLatestReportId(response[0].id);
+      } catch {
+        console.log("No reports found.");
+      }
     };
 
+    // const getVoaLite = async (orderId) => {
+    //   const url = `/accountchekorders/${orderId}/voa/lite`;
+    //   const response = await GET(url);
+    //   console.log("Retriving VOA lite: ", response);
+    //   try {
+    //     setOrderVoaLite(response);
+    //   } catch {
+    //     console.log("No accounts linked.");
+    //   }
+    // };
+
     getReportInfo(orderId);
+    // getVoaLite(orderId);
   }, [props.match.params]);
 
-  const getReportJson = async () => {
-    const url = `/accountchekorders/${orderId}/voa/reports/${latestReportId}/summary`;
-    const response = await GET(url);
-    setLatestReportJson(response);
-    console.log("Getting report - JSON: ", response);
-  };
-
-  const getReportPdf = async () => {
-    const url = `/accountchekorders/${orderId}/voa/reports/${latestReportId}/summary`;
-    const response = await GET_PDF(url);
-    const file = new Blob([response], { type: "application/pdf" });
-    const fileURL = URL.createObjectURL(file);
-    setLatestReportPdf(fileURL);
-  };
+  // useEffect(() => {
+  //   voaLite = orderVoaLite.map((account) => {
+  //     return (
+  //       <p>
+  //         {account.fiName} - {account.balance} as of {account.balanceDate}
+  //       </p>
+  //     );
+  //   });
+  // }, [orderVoaLite]);
 
   const getReports = () => {
-    getReportJson();
-    getReportPdf();
-  };
+    if (latestReportId) {
+      const getReportJson = async () => {
+        const url = `/accountchekorders/${orderId}/voa/reports/${latestReportId}/summary`;
+        const response = await GET(url);
+        setLatestReportJson(response);
+        console.log("Getting report - JSON: ", response);
+      };
 
-  const onDocumentLoadSuccess = ({ numPages }) => {
-    setNumPages(numPages);
-  };
+      const getReportPdf = async () => {
+        const url = `/accountchekorders/${orderId}/voa/reports/${latestReportId}/summary`;
+        const response = await GET_PDF(url);
 
-  const previousPage = () => {
-    setPageNumber(pageNumber - 1);
-  };
+        const file = new Blob([response], { type: "application/pdf" });
+        console.log("Getting report - PDF: ", file);
+        const fileURL = URL.createObjectURL(file);
+        setLatestReportPdf(fileURL);
+      };
 
-  const nextPage = () => {
-    setPageNumber(pageNumber + 1);
+      getReportJson();
+      getReportPdf();
+    }
   };
 
   return (
     <ApplicationCompleteStyled>
-      <p>Completion Dashboard</p>
-      <button onClick={getReports}>Get Report</button>
-      <Document
-        file={latestReportPdf}
-        onLoadError={(error) =>
-          alert("Error while loading document! " + error.message)
-        }
-        onLoadSuccess={onDocumentLoadSuccess}
-        options={{ cMapUrl: "cmaps/", cMapPacked: true }}
-      >
-        <Page pageNumber={pageNumber} />
-      </Document>
-      {numPages ? (
-        <p>
-          Page {pageNumber} of {numPages}
-        </p>
-      ) : (
+      <p>Review your VOA report</p>
+      {/* {orderVoaLite.length ? { voaLite } : ""} */}
+      {!latestReportId ? (
         ""
-      )}
-      {pageNumber > 1 ? (
-        <button onClick={previousPage}>Previous page</button>
       ) : (
-        ""
-      )}
-      {pageNumber < numPages ? (
-        <button onClick={nextPage}>Next page</button>
-      ) : (
-        ""
+        <>
+          {latestReportPdf ? (
+            ""
+          ) : (
+            <button onClick={getReports}>Get Report</button>
+          )}
+          <ReportViewer latestReportPdf={latestReportPdf} />
+        </>
       )}
     </ApplicationCompleteStyled>
   );
