@@ -22,8 +22,7 @@ const DemoWindow = () => {
 
   return (
     <DemoWindowStyled>
-      {demoType === "POS" ? <POSHome /> : ""}
-      {demoType === "LOS" ? <LOSHome /> : ""}
+      <h1> Welcome to the demo!</h1>
     </DemoWindowStyled>
   );
 };

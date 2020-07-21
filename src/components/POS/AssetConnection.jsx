@@ -38,7 +38,7 @@ const AssetConnection = (props) => {
       if (e.data === "closeFrame") {
         console.log("closewidget: ", e.data);
         window.removeEventListener("message", listener);
-        history.replace(`/application/complete/${orderId}`);
+        history.replace(`/pos/application/complete/${orderId}`);
       }
     };
     window.addEventListener("message", listener);

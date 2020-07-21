@@ -5,10 +5,12 @@ import { GET_HTML, POST, PATCH, GET } from "../../utils/apiCalls";
 import styled from "styled-components";
 
 const LOSHomeStyled = styled.div`
+  height: var(--main-height);
+  width: 100%;
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: var(--main-height);
 
   .widget {
     max-width: 600px;

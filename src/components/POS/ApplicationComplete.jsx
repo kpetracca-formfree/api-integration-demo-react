@@ -85,7 +85,7 @@ const ApplicationComplete = (props) => {
 
   return (
     <ApplicationCompleteStyled>
-      <p>Review your VOA report</p>
+      <h1>Review your VOA report</h1>
       {/* {orderVoaLite.length ? { voaLite } : ""} */}
       {!latestReportId ? (
         ""

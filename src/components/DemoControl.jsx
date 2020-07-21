@@ -53,7 +53,7 @@ const DemoControl = () => {
   const history = useHistory();
 
   const changeDemoType = (e) => {
-    history.replace("/");
+    history.replace(`/${e.target.value.toLowerCase()}`);
     setDemoType(e.target.value);
   };
 

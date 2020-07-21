@@ -1,6 +1,5 @@
 import React from "react";
-import { useRecoilState } from "recoil";
-import { demoTypeGlobal } from "../utils/recoilStates";
+import { useLocation } from "react-router-dom";
 
 import styled from "styled-components";
 
@@ -14,28 +13,73 @@ const DemoNavStyled = styled.nav`
   );
   height: var(--nav-height);
   width: 100%;
-  color: var(--white);
-  font-size: 30px;
-  font-weight: bold;
-  text-align: center;
+
+  a {
+    width: 100%;
+    height: 100%;
+    color: var(--white);
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+`;
+
+const POSNavStyled = styled.nav`
+  height: var(--nav-pos-height);
+  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 
-  p {
-    margin: 5px;
+  * {
+    color: var(--grey-dark);
+    font-weight: bold;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    text-decoration: none;
+  }
+
+  a:hover,
+  p:hover {
+    cursor: pointer;
+    background-color: var(--ff-blue);
+    transition: 0.3s ease-in-out;
+    color: var(--white);
+    border-radius: 4px;
   }
 `;
 
 const DemoNav = () => {
-  // eslint-disable-next-line
-  const [demoType, setDemoType] = useRecoilState(demoTypeGlobal);
+  let location = useLocation();
   return (
-    <DemoNavStyled>
-      <p>Fake Website</p>
-      {demoType ? <p>{" | "}</p> : ""}
-      <p>{demoType}</p>
-    </DemoNavStyled>
+    <>
+      <DemoNavStyled>
+        <a href="/">
+          <p>FindYourMortgage.com</p>
+        </a>
+      </DemoNavStyled>
+      {location.pathname.includes("/pos") ? (
+        <POSNavStyled>
+          <div className="left">
+            <a href="/pos">Home</a>
+          </div>
+          <div className="right">
+            <p>FAQ</p>
+            <p>Resources</p>
+            <p>About Us</p>
+            <p>Contact</p>
+          </div>
+        </POSNavStyled>
+      ) : (
+        ""
+      )}
+    </>
   );
 };
 

@@ -5,7 +5,9 @@ import { RecoilRoot } from "recoil";
 // top level imports
 import DemoControl from "./components/DemoControl";
 import DemoNav from "./components/DemoNav";
-import DemoWindow from "./components/DemoWindow"; // routing import
+import DemoWindow from "./components/DemoWindow";
+import POSHome from "./components/POS/POSHome";
+import LOSHome from "./components/LOS/LOSHome";
 
 // POS routing imports
 import StartApplication from "./components/POS/StartApplication";
@@ -39,13 +41,15 @@ const App = () => {
           <div className="demoWrapper">
             <DemoNav />
             <Route path="/" exact component={DemoWindow} />
-            <Route path="/application/start" component={StartApplication} />
+            <Route path="/pos" exact component={POSHome} />
+            <Route path="/los" exact component={LOSHome} />
+            <Route path="/pos/application/start" component={StartApplication} />
             <Route
-              path="/application/assets/:orderId"
+              path="/pos/application/assets/:orderId"
               component={AssetConnection}
             />
             <Route
-              path="/application/complete/:orderId"
+              path="/pos/application/complete/:orderId"
               component={ApplicationComplete}
             />
           </div>

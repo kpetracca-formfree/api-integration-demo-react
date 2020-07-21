@@ -15,6 +15,7 @@ const ApplicationStyled = styled.div`
 
   p {
     padding: 30px;
+    font-weight: bold;
   }
 
   form {
@@ -96,7 +97,7 @@ const StartApplication = () => {
     setOrderId(orderId);
     await createOrderVOA(orderId);
     await setVOAOpen(orderId);
-    history.replace(`/application/assets/${orderId}`);
+    history.replace(`/pos/application/assets/${orderId}`);
   };
 
   return (
