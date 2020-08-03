@@ -8,12 +8,19 @@ import styled from "styled-components";
 const POSHomeStyled = styled.div`
   height: var(--main-height);
   width: 100%;
+  max-width: 1200px;
+  margin: auto;
   padding: 0 50px;
   padding-top: 20px;
   display: flex;
   align-items: center;
   justify-content: space-around;
   text-align: center;
+  flex-wrap: wrap;
+  flex-basis: 0 0 500px;
+
+  .hero {
+  }
 
   .content {
     display: flex;

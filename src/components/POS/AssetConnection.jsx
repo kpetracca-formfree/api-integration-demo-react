@@ -29,8 +29,9 @@ const AssetConnection = (props) => {
   const getSSOUrl = async (orderId) => {
     const url = `/accountchekorders/${orderId}/ssoUrl`;
     const response = await GET(url);
-    setSSOUrl(response.url);
+    setSSOUrl(response.url + "&widget=1");
     console.log("Retrieve SSO URL: ", response);
+    console.log("Retrieve SSO URL: ", response.url + "&widget=1");
   };
 
   useEffect(() => {
