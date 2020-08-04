@@ -1,9 +1,11 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
+import image from "../images/icons8-home.svg";
 
 import styled from "styled-components";
 
-const DemoNavStyled = styled.nav`
+const POSNavStyled = styled.nav`
   box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2),
     0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0);
   background-image: -webkit-linear-gradient(
@@ -13,36 +15,28 @@ const DemoNavStyled = styled.nav`
   );
   height: var(--nav-height);
   width: 100%;
-
-  a {
-    width: 100%;
-    height: 100%;
-    color: var(--white);
-    font-size: 30px;
-    font-weight: bold;
-    text-decoration: none;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-`;
-
-const POSNavStyled = styled.nav`
-  height: var(--nav-pos-height);
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 
   * {
-    color: var(--grey-dark);
+    color: var(--white);
+    font-size: 1.2rem;
     font-weight: bold;
     padding: 5px 10px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
     text-decoration: none;
+  }
+
+  img {
+    height: var(--nav-height);
+  }
+
+  a,
+  img {
+    cursor: pointer;
   }
 
   a:hover,
@@ -56,29 +50,26 @@ const POSNavStyled = styled.nav`
 `;
 
 const DemoNav = () => {
-  let location = useLocation();
+  const history = useHistory();
+
+  const clickHandler = () => {
+    history.push("/");
+  };
+
   return (
     <>
-      <DemoNavStyled>
-        <a href="/">
-          <p>FindYourMortgage.com</p>
-        </a>
-      </DemoNavStyled>
-      {location.pathname.includes("/pos") ? (
-        <POSNavStyled>
-          <div className="left">
-            <a href="/pos">Home</a>
-          </div>
-          <div className="right">
-            <p>FAQ</p>
-            <p>Resources</p>
-            <p>About Us</p>
-            <p>Contact</p>
-          </div>
-        </POSNavStyled>
-      ) : (
-        ""
-      )}
+      <POSNavStyled>
+        <div className="left">
+          <img src={image} alt="logo" onClick={clickHandler}></img>
+          <a onClick={clickHandler}>FindYourMortgage.com</a>
+        </div>
+        <div className="right">
+          <p>FAQ</p>
+          <p>Resources</p>
+          <p>About Us</p>
+          <p>Contact</p>
+        </div>
+      </POSNavStyled>
     </>
   );
 };
