@@ -8,6 +8,9 @@ import { POST, PATCH } from "../../utils/apiCalls";
 import styled from "styled-components";
 
 const ApplicationStyled = styled.div`
+  height: var(--main-height-footer);
+  width: 100%;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,35 +34,37 @@ const ApplicationStyled = styled.div`
 `;
 
 const StartApplication = () => {
+  // set initial states using react hooks
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [last4SSN, setLast4SSN] = useState();
 
+  // pull in global orderId state for component use
   const [orderId, setOrderId] = useRecoilState(orderIdGlobal);
 
+  // attach history to component from react-router library
   const history = useHistory();
 
+  // adjust form values on change for each field
   const changeFirstName = (e) => {
     setFirstName(e.target.value);
   };
-
   const changeLastName = (e) => {
     setLastName(e.target.value);
   };
-
   const changeEmail = (e) => {
     setEmail(e.target.value);
   };
-
   const changeLast4SSN = (e) => {
     setLast4SSN(parseInt(e.target.value));
   };
 
+  // submit final form values for each field (based on live changes set above)...
+  // includes create order -> set VOA -> set status to 'opened'
   const submitOrder = async () => {
     const createOrder = async () => {
       const referenceNumber = 123456789;
-
       const url = "/accountchekorders";
       const body = {
         email: email,
@@ -97,12 +102,13 @@ const StartApplication = () => {
     setOrderId(orderId);
     await createOrderVOA(orderId);
     await setVOAOpen(orderId);
-    history.replace(`/pos/application/assets/${orderId}`);
+
+    // take user to edit or add account connections via IFrame
+    history.push(`/pos/application/assets/${orderId}`);
   };
 
   return (
     <ApplicationStyled>
-      {orderId ? <p className="orderId">{orderId}</p> : ""}
       <p>To start exploring lending options, enter your details below!</p>
       <form>
         <label>

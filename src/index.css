@@ -10,15 +10,16 @@
   --ff-red: rgb(235, 83, 98);
   --ff-red-gradient-light: rgb(251, 52, 90);
   --ff-red-gradient-dark: rgb(223, 24, 62);
-  --ff-red-dark: rgb(184, 70, 81);
+  --darker: rgba(0, 0, 0, 0.1);
   --ff-blue: rgb(9, 182, 255);
   --ff-blue-dark: rgb(5, 136, 192);
 
   --control-width: 200px;
   --demo-width: calc(100vw - var(--control-width));
   --nav-height: 60px;
-  --nav-pos-height: 40px;
-  --main-height: calc(100vh - var(--nav-height) - var(--nav-pos-height));
+  --footer-height: 275px;
+  --main-height: calc(100vh - var(--nav-height));
+  --main-height-footer: calc(100vh - var(--nav-height) - var(--footer-height));
 }
 
 *,

@@ -9,10 +9,10 @@ const AssetConnectionStyled = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: var(--main-height);
+  height: var(--main-height-footer);
 
   iframe {
-    width: var(--demo-width);
+    width: 100%;
     overflow: visible;
     height: 100%;
     border-style: none;
@@ -21,27 +21,33 @@ const AssetConnectionStyled = styled.div`
 `;
 
 const AssetConnection = (props) => {
+  // set orderId from url parameters
   const { orderId } = props.match.params;
+
+  // set initial state using react hooks
   const [SSOUrl, setSSOUrl] = useState("");
 
+  // attach history to component from react-router library
   const history = useHistory();
 
-  const getSSOUrl = async (orderId) => {
-    const url = `/accountchekorders/${orderId}/ssoUrl`;
-    const response = await GET(url);
-    setSSOUrl(response.url + "&widget=1");
-    console.log("Retrieve SSO URL: ", response);
-    console.log("Retrieve SSO URL: ", response.url + "&widget=1");
-  };
-
+  // on page load, set ssoUrl for IFrame and create event listener for IFrame postMessage
   useEffect(() => {
+    const getSSOUrl = async (orderId) => {
+      const url = `/accountchekorders/${orderId}/ssoUrl`;
+      const response = await GET(url);
+      setSSOUrl(response.url + "&widget=1");
+      console.log("Retrieve SSO URL: ", response);
+      console.log("Retrieve SSO URL: ", response.url + "&widget=1");
+    };
+
     const listener = (e) => {
       if (e.data === "closeFrame") {
         console.log("closewidget: ", e.data);
         window.removeEventListener("message", listener);
-        history.replace(`/pos/application/complete/${orderId}`);
+        history.push(`/pos/application/complete/${orderId}`);
       }
     };
+
     window.addEventListener("message", listener);
     getSSOUrl(orderId);
   }, [props.match.params]);

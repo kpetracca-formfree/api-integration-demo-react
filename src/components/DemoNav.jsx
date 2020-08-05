@@ -5,7 +5,7 @@ import image from "../images/icons8-home.svg";
 
 import styled from "styled-components";
 
-const POSNavStyled = styled.nav`
+const DemoNavStyled = styled.nav`
   box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2),
     0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0);
   background-image: -webkit-linear-gradient(
@@ -18,6 +18,7 @@ const POSNavStyled = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  z-index: 9000;
 
   * {
     color: var(--white);
@@ -37,15 +38,14 @@ const POSNavStyled = styled.nav`
   a,
   img {
     cursor: pointer;
+    height: var(--nav-height);
   }
 
-  a:hover,
-  p:hover {
+  a:hover {
     cursor: pointer;
-    background-color: var(--ff-blue);
+    background-color: var(--darker);
     transition: 0.3s ease-in-out;
     color: var(--white);
-    border-radius: 4px;
   }
 `;
 
@@ -58,18 +58,18 @@ const DemoNav = () => {
 
   return (
     <>
-      <POSNavStyled>
+      <DemoNavStyled>
         <div className="left">
           <img src={image} alt="logo" onClick={clickHandler}></img>
           <a onClick={clickHandler}>FindYourMortgage.com</a>
         </div>
         <div className="right">
-          <p>FAQ</p>
-          <p>Resources</p>
-          <p>About Us</p>
-          <p>Contact</p>
+          <a>FAQ</a>
+          <a>Resources</a>
+          <a>About Us</a>
+          <a>Contact</a>
         </div>
-      </POSNavStyled>
+      </DemoNavStyled>
     </>
   );
 };

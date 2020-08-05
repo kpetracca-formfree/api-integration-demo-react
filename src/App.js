@@ -4,6 +4,7 @@ import { RecoilRoot } from "recoil";
 
 // top level routing imports
 import DemoNav from "./components/DemoNav";
+import DemoFooter from "./components/DemoFooter";
 import DemoModal from "./components/DemoModal";
 import POSHome from "./components/POS/POSHome";
 import StartApplication from "./components/POS/StartApplication";
@@ -44,6 +45,7 @@ const App = () => {
               path="/pos/application/complete/:orderId"
               component={ApplicationComplete}
             />
+            <DemoFooter />
           </div>
         </Router>
       </AppStyled>

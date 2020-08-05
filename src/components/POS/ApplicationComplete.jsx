@@ -8,22 +8,30 @@ import ReportViewer from "./ReportViewer";
 import styled from "styled-components";
 
 const ApplicationCompleteStyled = styled.div`
+  height: var(--main-height-footer);
+  width: 100%;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
 const ApplicationComplete = (props) => {
+  // set orderId from url parameters
   const { orderId } = props.match.params;
 
+  // set initial states using react hooks
   const [orderVoaLite, setOrderVoaLite] = useState([]);
   const [latestReportId, setLatestReportId] = useState(null);
   const [latestReportJson, setLatestReportJson] = useState(null);
   const [latestReportPdf, setLatestReportPdf] = useState(null);
   const [showReport, setShowReport] = useState(false);
 
+  // attach history to component from react-router library
   const history = useHistory();
 
+  // on page load, pull voa lite data and check if report is available...
+  // if report available, set reportId
   useEffect(() => {
     const getVoaLite = async (orderId) => {
       const url = `/accountchekorders/${orderId}/voa/lite`;
@@ -51,12 +59,19 @@ const ApplicationComplete = (props) => {
     getReportInfo(orderId);
   }, [props.match.params]);
 
-  const voaLite = orderVoaLite.map((account) => (
-    <p>
-      {account.fiName} - {account.balance} as of {account.balanceDate}
-    </p>
-  ));
+  // create list of accounts to display from voa lite data
+  const voaLite = orderVoaLite.map((account, index) => {
+    const datePulled = new Date(account.balanceDate);
+    return (
+      <p key={index}>
+        <b>Bank Account:</b> {account.fiName} - {account.balance} as of{" "}
+        {datePulled.toUTCString()}
+      </p>
+    );
+  });
 
+  // on button click, sets flag to visually show report pdf...
+  // if reportId is set and pdf has not been retrieved yet from API, gets report json and pdf
   const getReport = () => {
     if (latestReportId && !latestReportPdf) {
       const getReportJson = async () => {
@@ -83,13 +98,15 @@ const ApplicationComplete = (props) => {
     setShowReport(true);
   };
 
+  // on button click, sets flag to hide report pdf
   const closeReport = () => {
     console.log("Closing report...");
     setShowReport(false);
   };
 
+  // take user to edit or add account connections via IFrame
   const editOrder = () => {
-    history.replace(`/pos/application/assets/${orderId}`);
+    history.push(`/pos/application/assets/${orderId}`);
   };
 
   return (
