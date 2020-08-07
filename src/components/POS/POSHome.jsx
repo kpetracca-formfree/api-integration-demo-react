@@ -1,5 +1,9 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { demoModalGlobal } from "../../utils/recoilStates";
+
+import DemoModal from "../atom/DemoModal";
 
 import logo from "../../images/icons8-home.svg";
 import bg1 from "../../images/julian-gentilezza-ctUWE7BUEzE-unsplash.jpg";
@@ -21,7 +25,7 @@ const POSHomeStyled = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: url(${bg3}) top center fixed;
+  background: url(${bg3}) top center fixed repeat;
   background-size: cover;
 
   .diagonal {
@@ -39,7 +43,7 @@ const POSHomeStyled = styled.div`
   }
 
   .hero {
-    max-width: 1200px;
+    max-width: var(--lg-cont);
     padding: 50px;
     display: flex;
     align-items: center;
@@ -96,13 +100,17 @@ const POSHome = () => {
   // attach history to component from react-router library
   const history = useHistory();
 
+  // pull in global orderId state for component use
+  const [demoModal, setDemoModal] = useRecoilState(demoModalGlobal);
+
   // take user to start application page when clicked
   const clickHandler = () => {
-    history.push("/pos/application/start");
+    history.push("/application/start");
   };
 
   return (
     <POSHomeStyled>
+      {demoModal ? <DemoModal /> : ""}
       <div className="diagonal">
         <div className="hero">
           <div className="contentLeft">

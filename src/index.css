@@ -14,12 +14,14 @@
   --ff-blue: rgb(9, 182, 255);
   --ff-blue-dark: rgb(5, 136, 192);
 
-  --control-width: 200px;
-  --demo-width: calc(100vw - var(--control-width));
   --nav-height: 60px;
   --footer-height: 275px;
   --main-height: calc(100vh - var(--nav-height));
   --main-height-footer: calc(100vh - var(--nav-height) - var(--footer-height));
+
+  --sm-cont: 300px;
+  --md-cont: 600px;
+  --lg-cont: 1200px;
 }
 
 *,

@@ -104,7 +104,7 @@ const StartApplication = () => {
     await setVOAOpen(orderId);
 
     // take user to edit or add account connections via IFrame
-    history.push(`/pos/application/assets/${orderId}`);
+    history.push(`/application/assets/${orderId}`);
   };
 
   return (

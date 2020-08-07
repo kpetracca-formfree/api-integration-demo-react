@@ -6,7 +6,7 @@ import styled from "styled-components";
 const DemoStartStyled = styled.nav`
   height: var(--main-height);
   width: 100%;
-  max-width: 1200px;
+  max-width: var(--lg-cont);
   margin: auto;
   padding: 0 50px;
   padding-top: 20px;
@@ -19,7 +19,7 @@ const DemoStart = () => {
   const history = useHistory();
 
   const clickHandler = () => {
-    history.push("/pos");
+    history.push("/");
   };
 
   return (

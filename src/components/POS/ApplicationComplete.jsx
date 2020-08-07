@@ -106,7 +106,7 @@ const ApplicationComplete = (props) => {
 
   // take user to edit or add account connections via IFrame
   const editOrder = () => {
-    history.push(`/pos/application/assets/${orderId}`);
+    history.push(`/application/assets/${orderId}`);
   };
 
   return (
