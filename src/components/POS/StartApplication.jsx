@@ -23,6 +23,7 @@ const ApplicationStyled = styled.div`
   }
 
   form {
+    padding: 5px;
     display: flex;
     flex-direction: column;
     align-items: start;
