@@ -5,7 +5,7 @@ import styled from "styled-components";
 const ModalStyled = styled.div`
   z-index: 9998;
   position: fixed;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.4);
   top: 0;
   right: 0;
   bottom: 0;
@@ -18,6 +18,8 @@ const ModalStyled = styled.div`
 
   .container {
     z-index: 9999;
+    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.5),
+      0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 1px 18px 0 rgba(0, 0, 0, 0);
     border-radius: 4px;
     position: absolute;
     top: 50%;
@@ -26,10 +28,12 @@ const ModalStyled = styled.div`
     background: var(--white);
     width: 95%;
     max-width: var(--md-cont);
-    max-height: var(--main-height-footer);
+    min-height: 150px;
+    max-height: 70%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-around;
     text-align: center;
     padding: 5px;
 
