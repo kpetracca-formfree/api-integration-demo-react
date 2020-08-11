@@ -1,17 +1,15 @@
 import React, { useRef } from "react";
-import { useRecoilState } from "recoil";
-import { demoModalGlobal } from "../../utils/recoilStates";
 
 import styled from "styled-components";
 
-const DemoModalStyled = styled.div`
+const ModalStyled = styled.div`
+  z-index: 9998;
   position: fixed;
   background-color: rgba(0, 0, 0, 0.7);
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 999;
   visibility: visible;
   opacity: 1;
   pointer-events: auto;
@@ -19,6 +17,7 @@ const DemoModalStyled = styled.div`
   max-width: 100vw;
 
   .container {
+    z-index: 9999;
     border-radius: 4px;
     position: absolute;
     top: 50%;
@@ -27,48 +26,57 @@ const DemoModalStyled = styled.div`
     background: var(--white);
     width: 95%;
     max-width: var(--md-cont);
+    max-height: var(--main-height-footer);
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding-left: 5px;
-
-    h1 {
-      font-size: 1.2rem;
-      padding: 15px;
-    }
+    padding: 5px;
 
     button {
       align-self: flex-end;
-      width: 100px;
     }
+  }
+
+  .scroll {
+    overflow: scroll;
   }
 `;
 
-const DemoModal = (props) => {
+const Modal = (props) => {
+  const {
+    allowOutsideClick,
+    scroll,
+    setGlobalState,
+    buttonText,
+    children,
+  } = props;
   const modal = useRef(null);
-  const [demoModal, setDemoModal] = useRecoilState(demoModalGlobal);
 
   const clickHandler = (event) => {
     if (modal.current.contains(event.target)) {
       return;
-    } else {
-      setDemoModal(false);
+    } else if (allowOutsideClick) {
+      setGlobalState(false);
     }
   };
 
   const closeHandler = () => {
-    setDemoModal(false);
+    setGlobalState(false);
   };
 
   return (
-    <DemoModalStyled onClick={clickHandler}>
+    <ModalStyled onClick={clickHandler}>
       <div className="container" ref={modal}>
-        <h1>Welcome to the FormFree POS Integration Demo!</h1>
-        <button onClick={closeHandler}>Begin</button>
+        {scroll ? (
+          <div className="scroll">{children}</div>
+        ) : (
+          <div>{children}</div>
+        )}
+        <button onClick={closeHandler}>{buttonText}</button>
       </div>
-    </DemoModalStyled>
+    </ModalStyled>
   );
 };
 
-export default DemoModal;
+export default Modal;

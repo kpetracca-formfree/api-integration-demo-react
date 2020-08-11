@@ -5,7 +5,6 @@ import { RecoilRoot } from "recoil";
 // top level routing imports
 import DemoNav from "./components/DemoNav";
 import DemoFooter from "./components/DemoFooter";
-import DemoModal from "./components/atom/DemoModal";
 import POSHome from "./components/POS/POSHome";
 import StartApplication from "./components/POS/StartApplication";
 import AssetConnection from "./components/POS/AssetConnection";

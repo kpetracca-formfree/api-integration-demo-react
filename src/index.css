@@ -51,7 +51,6 @@ button {
   background-color: var(--grey);
   color: var(--white);
   cursor: pointer;
-  width: 200px;
 }
 
 button:hover {

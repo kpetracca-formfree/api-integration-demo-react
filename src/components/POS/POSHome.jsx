@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { demoModalGlobal } from "../../utils/recoilStates";
 
-import DemoModal from "../atom/DemoModal";
+import Modal from "../atom/Modal";
 
 import logo from "../../images/icons8-home.svg";
 import bg1 from "../../images/julian-gentilezza-ctUWE7BUEzE-unsplash.jpg";
@@ -42,6 +42,10 @@ const POSHomeStyled = styled.div`
     align-items: center;
   }
 
+  .modal {
+    font-size: 1.2rem !important;
+  }
+
   .hero {
     max-width: var(--lg-cont);
     padding: 50px;
@@ -63,6 +67,7 @@ const POSHomeStyled = styled.div`
     align-items: flex-end;
     text-align: right;
     width: 50%;
+    min-width: 300px;
 
     .action {
       padding: 30px 0;
@@ -85,13 +90,20 @@ const POSHomeStyled = styled.div`
     );
     width: 100%;
     height: 70px;
-    margin-top: 150px;
+    margin: 150px auto;
     display: flex;
     align-items: center;
     justify-content: center;
 
     * {
       max-height: 200%;
+      margin: 15px;
+    }
+
+    *:hover {
+      max-height: 210%;
+      transition: 0.15s ease-in-out;
+      cursor: pointer;
     }
   }
 `;
@@ -100,7 +112,7 @@ const POSHome = () => {
   // attach history to component from react-router library
   const history = useHistory();
 
-  // pull in global orderId state for component use
+  // pull in global demo modal state for component use
   const [demoModal, setDemoModal] = useRecoilState(demoModalGlobal);
 
   // take user to start application page when clicked
@@ -110,7 +122,20 @@ const POSHome = () => {
 
   return (
     <POSHomeStyled>
-      {demoModal ? <DemoModal /> : ""}
+      {demoModal ? (
+        <Modal
+          allowOutsideClick={true}
+          scroll={false}
+          setGlobalState={setDemoModal}
+          buttonText="Begin"
+        >
+          <h1 className="modal">
+            Welcome to the FormFree POS Integration Demo!
+          </h1>
+        </Modal>
+      ) : (
+        ""
+      )}
       <div className="diagonal">
         <div className="hero">
           <div className="contentLeft">
@@ -135,11 +160,15 @@ const POSHome = () => {
         </div>
       </div>
       <div className="straight">
-        <img src={cursor}></img>
-        <img src={document}></img>
-        <img src={checkmark}></img>
-        <img src={loanOfficer}></img>
-        <img src={keys}></img>
+        <img src={cursor} alt="Step 1" title="Start your application" />
+        <img src={document} alt="Step 2" title="Share your information" />
+        <img src={checkmark} alt="Step 3" title="Verify your assets" />
+        <img
+          src={loanOfficer}
+          alt="Step 4"
+          title="Speak with one of our qualified loan officers"
+        />
+        <img src={keys} alt="Step 5" title="Get your loan!" />
       </div>
     </POSHomeStyled>
   );
