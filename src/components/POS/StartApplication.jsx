@@ -3,12 +3,13 @@ import { useRecoilState } from "recoil";
 import { orderIdGlobal } from "../../utils/recoilStates";
 import { useHistory } from "react-router-dom";
 
-import { POST, PATCH } from "../../utils/apiCalls";
+import { GET, POST, PATCH, PUT } from "../../utils/apiCalls";
+import { removeObjectKey, removeObjectKeys } from "../../utils/removeObjectKey";
 
 import styled from "styled-components";
 
 const ApplicationStyled = styled.div`
-  height: var(--main-height-footer);
+  min-height: var(--main-height-footer);
   width: 100%;
   margin: 0 auto;
   display: flex;
@@ -61,13 +62,13 @@ const StartApplication = () => {
   };
 
   // submit final form values for each field (based on live changes set above)...
-  // includes create order -> set VOA -> set status to 'opened'
+  // includes create order -> set VOA -> set status to 'opened' -> update email
   const submitOrder = async () => {
     const createOrder = async () => {
-      const referenceNumber = 123456789;
+      const referenceNumber = "POSDemo-123456789";
       const url = "/accountchekorders";
       const body = {
-        email: email,
+        email: "pos_demo_temp@example.com",
         firstName: firstName,
         lastName: lastName,
         last4SSN: last4SSN,
@@ -98,10 +99,27 @@ const StartApplication = () => {
       console.log("VOA open response: ", response);
     };
 
+    const updateEmail = async (orderId) => {
+      const url = `/accountchekorders/${orderId}`;
+      const getBody = await GET(url);
+      let newBody = getBody;
+      newBody = removeObjectKeys(newBody, [
+        "id",
+        "created",
+        "loginUrl",
+        "daysRemaining",
+        "employmentVerificationRequested",
+      ]);
+      newBody.email = email;
+      const response = await PUT(url, await newBody);
+      console.log("Update email response: ", response);
+    };
+
     const orderId = await createOrder();
     setOrderId(orderId);
     await createOrderVOA(orderId);
     await setVOAOpen(orderId);
+    await updateEmail(orderId);
 
     // take user to edit or add account connections via IFrame
     history.push(`/application/assets/${orderId}`);

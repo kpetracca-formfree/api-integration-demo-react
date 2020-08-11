@@ -81,3 +81,19 @@ export const PATCH = async (url, body) => {
   );
   return await response.json();
 };
+
+export const PUT = async (url, body) => {
+  const response = await fetch(
+    proxyFlag ? proxy + baseUrl + url : baseUrl + url,
+    {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: authCred,
+      },
+      body: JSON.stringify(body),
+    }
+  );
+  return await response.json();
+};
