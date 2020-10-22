@@ -46,6 +46,10 @@ const AssetConnection = (props) => {
         window.removeEventListener("message", listener);
         history.push(`/application/complete/${orderId}`);
       }
+      if (e.data === "closeFrameTimeout") {
+        console.log("closewidget: ", e.data);
+        window.removeEventListener("message", listener);
+      }
     };
 
     const getSSOUrl = async (orderId) => {
