@@ -47,7 +47,7 @@ const AssetConnection = (props) => {
         history.push(`/application/complete/${orderId}`);
       }
       if (e.data === "closeFrameTimeout") {
-        console.log("closewidget: ", e.data);
+        console.log("closewidgettimeout: ", e.data);
         window.removeEventListener("message", listener);
       }
     };
